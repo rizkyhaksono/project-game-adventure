@@ -1,7 +1,6 @@
 package com.project.main;
 
 import com.project.entity.Player;
-import com.project.tile.Tile;
 import com.project.tile.TileManager;
 
 import javax.swing.*;
@@ -37,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 4;
+
     public GamePanel() {
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void run() {
 
-        double drawInterval = 1000000000/FPS;
+        double drawInterval = 1000000000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -80,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
             if (timer >= 1000000000) {
                 System.out.println("FPS: " + drawCount);
                 drawCount = 0;
-                timer = 0 ;
+                timer = 0;
             }
         }
 
