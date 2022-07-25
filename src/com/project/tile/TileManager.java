@@ -9,8 +9,8 @@ import java.io.*;
 public class TileManager {
 
     GamePanel gp;
-    Tile[] tile;
-    int mapTileNum[][];
+    public Tile[] tile;
+    public int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -41,6 +41,7 @@ public class TileManager {
 
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(new FileInputStream("res/tiles/tree.png"));
+            tile[4].collision = true;
 
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(new FileInputStream("res/tiles/sand.png"));
