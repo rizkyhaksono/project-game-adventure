@@ -17,7 +17,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
-    int hasKey = 0;
+    public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -105,6 +105,7 @@ public class Player extends Entity {
                 }
             }
 
+            //Down here, we're calling this 60 per second. --> increasing spritecounter --> changing image every 12 frames to make things smoother
             spriteCounter++;
             if (spriteCounter > 12) {
 
@@ -122,22 +123,28 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) {
+            //if index is not 999, we're touching an object
             String objectName = gp.obj[i].name;
 
             switch (objectName) {
                 case "Key":
                     hasKey++;
+//                    gp.playSE(0);
                     gp.obj[i] = null;
-                    System.out.println("Key: " + hasKey);
+                    gp.ui.showMessage("You found a key!");
                     break;
+
                 case "Door":
                     if(hasKey > 0) {
+//                        gp.playSE(1);
                         gp.obj[i] = null;
                         hasKey--;
                     }
                     System.out.println("Key:" + hasKey);
                     break;
+
                 case "Boots":
+//                    gp.playSE(4);
                     speed += 2;
                     gp.obj[i] = null;
                     break;
@@ -161,6 +168,7 @@ public class Player extends Entity {
                     image = up2;
                 }
                 break;
+
             case "down":
                 if (spriteNum == 1) {
                     image = down1;
@@ -168,6 +176,7 @@ public class Player extends Entity {
                     image = down2;
                 }
                 break;
+
             case "left":
                 if (spriteNum == 1) {
                     image = left1;
@@ -175,6 +184,7 @@ public class Player extends Entity {
                     image = left2;
                 }
                 break;
+
             case "right":
                 if (spriteNum == 1) {
                     image = right1;

@@ -6,6 +6,7 @@ import com.project.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -22,26 +23,25 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
 
     // FPS
     int FPS = 60;
 
+    // SYSTEM
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
-    Thread gameThread;
+    Sound music = new Sound();
+    Sound se = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
+    Thread gameThread;
+
+    // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
 
-    // Set player's default position
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
-
-    public GamePanel() {
+    public GamePanel() throws FileNotFoundException {
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
@@ -53,6 +53,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setObject();
+
+        playMusic(0);
     }
 
     public void startGameThread() {
@@ -94,19 +96,19 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public void update() {
+    public void update() { // update information such as char positions
 
         player.update();
 
     }
 
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) { // draw the screen with updated information
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
         // TILE
-        tileM.draw(g2);
+        tileM.draw(g2); // draw the tile map and then player will be behind the tiles
 
         // OBJECT
         for (int i = 0; i < obj.length; i++) {
@@ -118,8 +120,26 @@ public class GamePanel extends JPanel implements Runnable {
         // PLAYER
         player.draw(g2);
 
-        g2.dispose();
+        // UI
+        ui.draw(g2);
 
+        g2.dispose(); // dispose to save memory
+
+    }
+
+    public void playMusic(int i) {
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+
+    public void stopMusic() {
+        music.stop();
+    }
+
+    public void playSE(int i) {
+        se.setFile(i);
+        se.play();
     }
 
 }

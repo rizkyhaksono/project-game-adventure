@@ -63,6 +63,8 @@ public class TileManager {
             while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
 
                 String line = br.readLine();
+//                System.out.println("col : " + col);
+//                System.out.println("row : " + row);
 
                 while (col < gp.maxWorldCol) {
 
@@ -75,6 +77,7 @@ public class TileManager {
                 }
 
                 if (col == gp.maxWorldCol) {
+//                    System.out.println("col : " + col);
                     col = 0;
                     row++;
                 }
