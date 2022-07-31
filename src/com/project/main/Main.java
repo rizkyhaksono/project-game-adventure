@@ -1,11 +1,12 @@
 package com.project.main;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
+
+import javax.swing.*;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -13,6 +14,7 @@ public class Main {
         window.setTitle("2D Adventure");
 
         GamePanel gamePanel = new GamePanel();
+
         window.add(gamePanel);
 
         window.pack();
