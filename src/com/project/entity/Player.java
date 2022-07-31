@@ -13,19 +13,15 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-    GamePanel gp;
     KeyHandler keyH;
 
     public final int screenX;
     public final int screenY;
-    public int hasKey = 0;
     int standCounter = 0;
-    boolean moving = false;
-    int pixelCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
@@ -53,14 +49,14 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        up1 = setup("up1");
-        up2 = setup("up2");
-        down1 = setup("down1");
-        down2 = setup("down2");
-        left1 = setup("left1");
-        left2 = setup("left2");
-        right1 = setup("right1");
-        right2 = setup("right2");
+        up1 = setup("res/player/up1");
+        up2 = setup("res/player/up2");
+        down1 = setup("res/player/down1");
+        down2 = setup("res/player/down2");
+        left1 = setup("res/player/left1");
+        left2 = setup("res/player/left2");
+        right1 = setup("res/player/right1");
+        right2 = setup("res/player/right2");
     }
 
     public BufferedImage setup(String imageName) {
@@ -69,7 +65,7 @@ public class Player extends Entity {
         BufferedImage image = null;
 
         try {
-            image = ImageIO.read(new FileInputStream("res/player/" + imageName + ".png"));
+            image = ImageIO.read(new FileInputStream(imageName + ".png"));
             image = uTool.scaledImage(image, gp.tileSize, gp.tileSize);
 
         } catch (Exception e) {
@@ -80,45 +76,43 @@ public class Player extends Entity {
 
     public void update() {
 
-        if (moving == false) {
+        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
 
-            if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
+            if (keyH.upPressed == true) {
+                direction = "up";
+            } else if (keyH.downPressed == true) {
+                direction = "down";
+            } else if (keyH.leftPressed == true) {
+                direction = "left";
+            } else if (keyH.rightPressed == true) {
+                direction = "right";
+            }
 
-                if (keyH.upPressed == true) {
-                    direction = "up";
-                } else if (keyH.downPressed == true) {
-                    direction = "down";
-                } else if (keyH.leftPressed == true) {
-                    direction = "left";
-                } else if (keyH.rightPressed == true) {
-                    direction = "right";
-                }
+            // CHECK TILE COLLISION
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
 
-                // CHECK TILE COLLISION
-                collisionOn = false;
-                gp.cChecker.checkTile(this);
-
-                // CHECK OBJECT COLLISION
-                int objIndex = gp.cChecker.checkObject(this, true);
-                pickUpObject(objIndex);
+            // CHECK OBJECT COLLISION
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
 
 
-                // IF COLLISION IS FALSE, PLAYER CAN MOVE
-                if (collisionOn == false) {
+            // IF COLLISION IS FALSE, PLAYER CAN MOVE
+            if (collisionOn == false) {
 
-                    switch (direction) {
-                        case "up":
-                            worldY -= speed;
-                            break;
-                        case "down":
-                            worldY += speed;
-                            break;
-                        case "left":
-                            worldX -= speed;
-                            break;
-                        case "right":
-                            worldX += speed;
-                            break;
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
                     }
                 }
 
@@ -143,56 +137,18 @@ public class Player extends Entity {
                     standCounter = 0;
                 }
             }
-        }
-
     }
 
     public void pickUpObject(int i) {
+
         if (i != 999) {
-            //if index is not 999, we're touching an object
-            String objectName = gp.obj[i].name;
 
-            switch (objectName) {
-                case "Key":
-                    hasKey++;
-                    gp.playSE(1);
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("You found a key!");
-                    break;
 
-                case "Door":
-                    if(hasKey > 0) {
-                        gp.playSE(3);
-                        gp.obj[i] = null;
-                        hasKey--;
 
-                        gp.ui.showMessage("You opened the door!");
-                    } else {
-                        gp.ui.showMessage("You need a key to open this door!");
-                    }
-                    break;
-
-                case "Boots":
-                    gp.playSE(2);
-                    speed += 2;
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("Speed up!");
-                    break;
-
-                case "Chest":
-                    gp.ui.gameFinished = true;
-                    gp.stopMusic();
-                    gp.playSE(4);
-                    break;
-
-            }
         }
     }
 
     public void draw(Graphics2D g2) {
-
-//        g2.setColor(Color.WHITE);
-//        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
 
         BufferedImage image = null;
 
@@ -228,12 +184,9 @@ public class Player extends Entity {
                     image = right2;
                 }
                 break;
-
         }
 
         g2.drawImage(image, screenX, screenY, null);
-//        g2.setColor(Color.red);
-//        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
     }
 
 }
