@@ -18,6 +18,7 @@ public class NPC_OldMan extends Entity {
         speed = 1;
 
         getImage();
+        setDialogue();
     }
 
     public void getImage() {
@@ -31,26 +32,47 @@ public class NPC_OldMan extends Entity {
         right2 = setup("res/npc/oldman_right_2");
     }
 
+    public void setDialogue() {
+        dialogues[0] = "Hello, lad";
+        dialogues[1] = "So, you've come to this island to \nfind the treasure?";
+        dialogues[2] = "I used to be great wizard but now... \nI'm a bit old to take this journey...";
+        dialogues[3] = "Well, good luck for you lad!";
+    }
+
     public void setAction() {
 
-        Random random = new Random();
-        int i = random.nextInt(100) + 1; // pick a number from 1 to 100
+        actionLockCounter++;
 
-        if (i <= 25) {
-            direction = "up";
-        }
+        if (actionLockCounter == 120) {
 
-        if (i > 25 && i <= 50) {
-            direction = "down";
-        }
+            Random random = new Random();
+            int i = random.nextInt(100) + 1; // pick a number from 1 to 100
 
-        if (i > 50 && i <= 75) {
-            direction = "left";
-        }
+            if (i <= 25) {
+                direction = "up";
+            }
 
-        if (i > 75 && i <= 100) {
-            direction = "right";
+            if (i > 25 && i <= 50) {
+                direction = "down";
+            }
+
+            if (i > 50 && i <= 75) {
+                direction = "left";
+            }
+
+            if (i > 75 && i <= 100) {
+                direction = "right";
+            }
+
+            actionLockCounter = 0;
         }
+    }
+
+    public void speak() {
+
+        // do this character specific stuff
+
+        super.speak();
     }
 
 }

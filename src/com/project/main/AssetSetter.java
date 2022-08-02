@@ -1,10 +1,6 @@
 package com.project.main;
 
 import com.project.entity.NPC_OldMan;
-import com.project.object.OBJ_Boots;
-import com.project.object.OBJ_Chest;
-import com.project.object.OBJ_Door;
-import com.project.object.OBJ_Key;
 
 public class AssetSetter {
 
