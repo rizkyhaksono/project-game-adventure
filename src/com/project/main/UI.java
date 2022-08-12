@@ -1,12 +1,15 @@
 package com.project.main;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class UI {
 
     Graphics2D g2;
     GamePanel gp;
-    Font arial_40, arial_80B;
+    Font arial_40, arial_80B, retro_20;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -18,6 +21,14 @@ public class UI {
 
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
+
+        try {
+            File retroFont = new File("res/font/Retro Gaming.ttf");
+//            InputStream retroFont = getClass().getResourceAsStream("res/font/retroGaming.ttf");
+            retro_20 = Font.createFont(Font.TRUETYPE_FONT, retroFont);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showMessage(String text) {
@@ -29,8 +40,14 @@ public class UI {
 
         this.g2 = g2;
 
-        g2.setFont(arial_40);
+        g2.setFont(retro_20);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.setColor(Color.WHITE);
+
+        // TITLE STATE
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen();
+        }
 
         // PLAY STATE
         if (gp.gameState == gp.playState) {
@@ -45,6 +62,12 @@ public class UI {
         if (gp.gameState == gp.dialogState) {
             drawDialogScreen();
         }
+    }
+
+    public void drawTitleScreen() {
+
+        // TITLE NAME
+        g2.setFont(g2.setFont().deriveFont(Font.BOLD, 96F));
     }
 
     public void drawPauseScreen() {
@@ -66,7 +89,7 @@ public class UI {
         int height = gp.tileSize * 4;
         drawSubWindow(x, y, width, height);
 
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
         x += gp.tileSize;
         y += gp.tileSize;
 

@@ -1,11 +1,7 @@
 package com.project.entity;
 
 import com.project.main.GamePanel;
-import com.project.main.UtilityTools;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.util.Random;
 
 public class NPC_OldMan extends Entity {
