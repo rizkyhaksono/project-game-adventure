@@ -72,8 +72,8 @@ public class UI {
             g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
             // TITLE NAME
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
-            String text = "Blue Boy Adventure";
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+            String text = "Adventure Man";
             int x = getXforCenteredText(text);
             int y = gp.tileSize * 3;
 
