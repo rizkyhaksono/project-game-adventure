@@ -23,6 +23,87 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
+        // TITLE STATE
+        if (gp.gameState == gp.titleState) {
+
+            // title screen 0
+            if (gp.ui.titleScreenState == 0) {
+
+                // increment commandNum
+                if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                    gp.ui.commandNum--;
+                    if (gp.ui.commandNum < 0) {
+                        gp.ui.commandNum = 2;
+                    }
+                }
+
+                // decrement commandNum
+                if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                    gp.ui.commandNum++;
+                    if (gp.ui.commandNum > 2) {
+                        gp.ui.commandNum = 0;
+                    }
+                }
+
+                // enter
+                if (code == KeyEvent.VK_ENTER) {
+                    if (gp.ui.commandNum == 0) {
+                        gp.ui.titleScreenState = 1;
+                    }
+
+                    if (gp.ui.commandNum == 1) {
+                        // add later
+                    }
+
+                    if (gp.ui.commandNum == 2) {
+                        System.exit(0);
+                    }
+                }
+            } else if (gp.ui.titleScreenState == 1) { // title screen 1
+
+                // increment commandNum
+                if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                    gp.ui.commandNum--;
+                    if (gp.ui.commandNum < 0) {
+                        gp.ui.commandNum = 3;
+                    }
+                }
+
+                // decrement commandNum
+                if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                    gp.ui.commandNum++;
+                    if (gp.ui.commandNum > 3) {
+                        gp.ui.commandNum = 0;
+                    }
+                }
+
+                // enter
+                if (code == KeyEvent.VK_ENTER) {
+                    if (gp.ui.commandNum == 0) {
+                        System.out.println("Do some fighter specific stuff!");
+                        gp.gameState = gp.playState;
+                        gp.playMusic(0);
+                    }
+
+                    if (gp.ui.commandNum == 1) {
+                        System.out.println("Do some thief specific stuff!");
+                        gp.gameState = gp.playState;
+                        gp.playMusic(0);
+                    }
+
+                    if (gp.ui.commandNum == 2) {
+                        System.out.println("Do some sorcerer specific stuff!");
+                        gp.gameState = gp.playState;
+                        gp.playMusic(0);
+                    }
+
+                    if (gp.ui.commandNum == 3) {
+                        gp.ui.titleScreenState = 0;
+                    }
+                }
+            }
+        }
+
         // play state
         if (gp.gameState == gp.playState) {
 
