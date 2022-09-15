@@ -66,8 +66,23 @@ public class UI {
 
     public void drawTitleScreen() {
 
+        g2.setColor(new Color(0, 0, 0));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
         // TITLE NAME
-        g2.setFont(g2.setFont().deriveFont(Font.BOLD, 96F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
+        String text = "Blue Boy Adventure";
+        int x = getXforCenteredText(text);
+        int y = gp.tileSize * 3;
+
+        // shadow
+        g2.setColor(Color.gray);
+        g2.drawString(text, x + 5, y + 5);
+
+        // Main color
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
     }
 
     public void drawPauseScreen() {
