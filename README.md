@@ -1,8 +1,8 @@
 # Adventure Man
 
-Tujuan dibuatnya game ini adalah untuk menuntaskan Tugas Akhir Pemrograman Berorientasi Obyek.
+The purpose of this game is to complete the Object Oriented Programming Final Project. My hoped is hopefully this game will be useful for the local community.
 
-Diharapkan dapat bermanfaat bagi masyarakat sekitar.
+There's maybe plenty of bug, you can write an issues right here.
 
 ## Features
 
@@ -12,15 +12,16 @@ Diharapkan dapat bermanfaat bagi masyarakat sekitar.
   * [x] Game Over Screen
   * [x] High Score Screen
   * [x] Pause Screen
-  * [x] Settings Screen
   * [x] Music
   * [x] Sound Effects
-  * [x] Save High Score
-  * [x] Save Settings
-  * [x] Load Settings
-  * [x] Load High Score
-  * [x] Load Game
 
+## Take a quick look
+
+<div align="center">
+ <img src="https://raw.githubusercontent.com/rizkyhaksono/project-game-adventure/main/screenshot/screen-1.png" width="500px"/>
+ <img src="https://raw.githubusercontent.com/rizkyhaksono/project-game-adventure/main/screenshot/screen-2.png" width="500px"/>
+ <img src="https://raw.githubusercontent.com/rizkyhaksono/project-game-adventure/main/screenshot/screen-3.png" width="500px"/>
+</div>
 
 ## License
 
